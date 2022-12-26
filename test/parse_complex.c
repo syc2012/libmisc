@@ -13,16 +13,12 @@ int main(int argc, char *argv[])
 {
     char *pFile = "Complex.txt";
     unsigned int num;
-    unsigned int i;
 
     if (argc > 1) pFile = argv[1];
 
     num = parse_complex_string_file(pFile, g_buf, MAX_BUF_SIZE);
 
-    for (i=0; i<num; i++)
-    {
-        printf("%d  %+f %+f\n", (i + 1), g_buf[i].real, g_buf[i].imag);
-    }
+    cplx_dump(pFile, g_buf, num);
 
     return 0;
 }

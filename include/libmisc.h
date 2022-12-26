@@ -61,6 +61,47 @@
 #define DIV_FLOOR(x, y) ((x) / (y))
 
 
+#define CPLX_ADD(ina, inb, outc) \
+{ \
+    outc.real = (ina.real + inb.real); \
+    outc.imag = (ina.imag + inb.imag); \
+}
+
+#define CPLX_SUB(ina, inb, outc) \
+{ \
+    outc.real = (ina.real - inb.real); \
+    outc.imag = (ina.imag - inb.imag); \
+}
+
+#define CPLX_MUL(ina, inb, outc) \
+{ \
+    double real, imag; \
+    real = ((ina.real * inb.real) - (ina.imag * inb.imag)); \
+    imag = ((ina.imag * inb.real) + (ina.real * inb.imag)); \
+    outc.real = real; \
+    outc.imag = imag; \
+}
+
+#define CPLX_DIV(ina, inb, outc) \
+{ \
+    double real, imag; \
+    double temp = ((inb.real * inb.real) + (inb.imag * inb.imag)); \
+    real = ((ina.real * inb.real) + (ina.imag * inb.imag)) / temp; \
+    imag = ((ina.imag * inb.real) - (ina.real * inb.imag)) / temp; \
+    outc.real = real; \
+    outc.imag = imag; \
+}
+
+#define CPLX_POW( in ) \
+    (pow(in.real, 2) + pow(in.imag, 2))
+
+#define CPLX_ABS( in ) \
+    sqrt(pow(in.real, 2) + pow(in.imag, 2))
+
+#define CPLX_ANGLE( in ) \
+    atan2(in.imag, in.real)
+
+
 // /////////////////////////////////////////////////////////////////////////////
 //    Type declarations
 // /////////////////////////////////////////////////////////////////////////////
@@ -71,16 +112,16 @@ typedef enum
     PARSE_STOP
 } tParseAction;
 
+typedef int (*tParseByteCb)(unsigned char *pBuf, int size, unsigned int offset);
+typedef int (*tParseLineCb)(char *pStr, int len, int count);
+typedef int (*tParseTokenCb)(char *pStr, int len, int count);
+typedef void (*tListDirCb)(char *pDir, char *pName, int type, void *pArg);
+
 typedef struct _tComplex
 {
     double  real;
     double  imag;
 } tComplex;
-
-typedef int (*tParseByteCb)(unsigned char *pBuf, int size, unsigned int offset);
-typedef int (*tParseLineCb)(char *pStr, int len, int count);
-typedef int (*tParseTokenCb)(char *pStr, int len, int count);
-typedef void (*tListDirCb)(char *pDir, char *pName, int type, void *pArg);
 
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -286,6 +327,14 @@ long file_size(char *pName);
  * @param [in]  size   Memory size.
  */
 void mem_dump(char *pDesc, void *pAddr, unsigned int size);
+
+/**
+ * Print complex number sequence.
+ * @param [in]  pDesc  Description string.
+ * @param [in]  pSeq   Complex number sequence.
+ * @param [in]  len    Complex number sequence length.
+*/
+void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 
 
 #endif  /* __LIBMISC_H__ */
