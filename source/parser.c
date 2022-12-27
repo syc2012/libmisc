@@ -384,7 +384,7 @@ unsigned int parse_complex_string_file(
         more = read_line(pInput, line, LINE_SIZE);
         if (more > 0)
         {
-            for (pFirst=line; *pFirst && IS_SPACE(*pFirst); pFirst++);
+            SKIP_SPACE(line, pFirst);
 
             pNext = NULL;
             for (i=0; i<strlen(pFirst); i++)
@@ -392,7 +392,7 @@ unsigned int parse_complex_string_file(
                 if ( IS_SPACE(pFirst[i]) )
                 {
                     pFirst[i] = 0x00;
-                    pNext = &(pFirst[i + 1]);
+                    SKIP_SPACE(&(pFirst[i + 1]), pNext);
                     break;
                 }
             }

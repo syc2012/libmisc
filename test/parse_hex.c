@@ -17,8 +17,10 @@ int main(int argc, char *argv[])
     if (argc > 1) pFile = argv[1];
 
     len = parse_hex_string_file(pFile, g_buf, MAX_BUF_SIZE);
-
-    mem_dump(pFile, g_buf, len);
+    if (len > 0)
+    {
+        mem_dump(pFile, g_buf, len);
+    }
 
     return 0;
 }

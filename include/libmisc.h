@@ -16,6 +16,8 @@
 #define LINE_SIZE             (1023)
 #define TOKEN_SIZE            (255)
 
+#define SKIP_SPACE(in, out)   for (out=in; *out && IS_SPACE(*out); out++)
+
 
 #define DIR_UNKNOWN_FILE_TYPE  DT_UNKNOWN
 #define DIR_NAMED_PIPE         DT_FIFO
@@ -147,6 +149,12 @@ int rand_num(int min, int max);
  */
 char *time_stamp(void);
 
+/**
+ * Sleep in milli-second(s).
+ * @param [in]  ms  milli-second.
+ */
+void msleep(unsigned int ms);
+
 
 /**
  * Get one character from keyboard input.
@@ -244,6 +252,20 @@ int list_dir_files(
     void       *pArg
 );
 
+/**
+ * File existence test.
+ * @param [in]  pName  File path name.
+ * @returns  True(1) or false(0).
+ */
+int file_exist(char *pName);
+
+/**
+ * Get file size.
+ * @param [in]  pName  File path name.
+ * @returns  Size in bytes.
+ */
+long file_size(char *pName);
+
 
 /**
  * Convert IP address data to string.
@@ -303,21 +325,6 @@ int plmn2str(void *pPlmn, int plmnSize, char *pBuf, int bufSize);
  * @returns  Data length.
  */
 int str2plmn(char *pStr, unsigned char *pBuf, int bufSize);
-
-
-/**
- * File existence test.
- * @param [in]  pName  File path name.
- * @returns  True(1) or false(0).
- */
-int file_exist(char *pName);
-
-/**
- * Get file size.
- * @param [in]  pName  File path name.
- * @returns  Size in bytes.
- */
-long file_size(char *pName);
 
 
 /**

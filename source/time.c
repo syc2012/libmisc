@@ -75,3 +75,17 @@ char *time_stamp(void)
     return _buffer[_index];
 }
 
+/**
+ * Sleep in milli-second(s).
+ * @param [in]  ms  milli-second.
+ */
+void msleep(unsigned int ms)
+{
+    struct timeval tout;
+
+    tout.tv_sec  = ms / 1000;
+    tout.tv_usec = (ms % 1000) * 1000;
+
+    while (select(0, 0, 0, 0, &tout) < 0);
+}
+
