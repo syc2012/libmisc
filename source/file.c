@@ -162,7 +162,7 @@ void file_path_name(char *pInput, char *pPath, char *pName)
     }
     else
     {
-        if ( pPath ) strcpy(pPath, &(pInput[0]));
+        if ( pPath ) sprintf(pPath, "%s/", &(pInput[0]));
         if ( pName ) strcpy(pName, &(pInput[j+1]));
     }
 }
