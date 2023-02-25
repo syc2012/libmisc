@@ -266,6 +266,14 @@ int file_exist(char *pName);
  */
 long file_size(char *pName);
 
+/**
+ * Extract file path and name.
+ * @param [in]  pInput  File path and name.
+ * @param [out] pPath.  File path.
+ * @param [out] pName.  File name.
+ */
+void file_path_name(char *pInput, char *pPath, char *pName);
+
 
 /**
  * Convert IP address data to string.
