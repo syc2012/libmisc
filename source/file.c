@@ -126,3 +126,43 @@ long file_size(char *pName)
     return 0;
 }
 
+/**
+ * Extract file path and name.
+ * @param [in]  pInput  File path and name.
+ * @param [out] pPath.  File path.
+ * @param [out] pName.  File name.
+ */
+void file_path_name(char *pInput, char *pPath, char *pName)
+{
+    int i = 0;
+    int j = -1;
+    int len;
+
+    if ((len = strlen(pInput)) > 0)
+    {
+        for (i=0, j=(len-1); i<len; i++, j--)
+        {
+            if ('/' == pInput[j])
+            {
+                pInput[j] = 0x00;
+                break;
+            }
+        }
+    }
+
+    if (j < 0)
+    {
+        if ( pPath ) pPath[0] = 0x00;
+        if ( pName ) strcpy(pName, &(pInput[0]));
+    }
+    else if (j == 0)
+    {
+        if ( pPath ) sprintf(pPath, "/");
+        if ( pName ) strcpy(pName, &(pInput[1]));
+    }
+    else
+    {
+        if ( pPath ) strcpy(pPath, &(pInput[0]));
+        if ( pName ) strcpy(pName, &(pInput[j+1]));
+    }
+}
