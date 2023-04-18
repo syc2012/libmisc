@@ -9,6 +9,13 @@
 //    Macro declarations
 // /////////////////////////////////////////////////////////////////////////////
 
+#define LOGINFO( a... )   log_print("LOG-I", ##a)
+#define LOGWARN( a... )   log_print("LOG-[1;33mW[0m", ##a)
+#define LOGERROR( a... )  log_print("LOG-[1;31mE[0m", ##a)
+#define LOGDEBUG( a... )  log_print("LOG-[1;36mD[0m", ##a)
+#define LOGDUMP(var, len) mem_dump(#var, var, len)
+
+
 #define IS_UPPER_ALHPABET(ch) ((ch >= 'A') && (ch <= 'Z'))
 #define IS_LOWER_ALHPABET(ch) ((ch >= 'a') && (ch <= 'z'))
 #define IS_NUMBER(ch)         ((ch >= '0') && (ch <= '9'))
@@ -134,6 +141,37 @@ typedef struct _tComplex
 // /////////////////////////////////////////////////////////////////////////////
 //    Functions
 // /////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Log output option.
+ * @param [in]  enable  Enable or disable log output.
+ */
+void log_option(int enable);
+
+/**
+ * Log print function.
+ * @param [in]  pPrefix  Log prefix.
+ * @param [in]  pFormat  Print format.
+ */
+void log_print(char *pPrefix, char *pFormat, ...);
+
+
+/**
+ * Dump memory.
+ * @param [in]  pDesc  Description string.
+ * @param [in]  pAddr  Memory address.
+ * @param [in]  size   Memory size.
+ */
+void mem_dump(char *pDesc, void *pAddr, unsigned int size);
+
+/**
+ * Print complex number sequence.
+ * @param [in]  pDesc  Description string.
+ * @param [in]  pSeq   Complex number sequence.
+ * @param [in]  len    Complex number sequence length.
+*/
+void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
+
 
 /**
  * Generate a random between min. and max. value.
@@ -333,23 +371,6 @@ int plmn2str(void *pPlmn, int plmnSize, char *pBuf, int bufSize);
  * @returns  Data length.
  */
 int str2plmn(char *pStr, unsigned char *pBuf, int bufSize);
-
-
-/**
- * Dump memory.
- * @param [in]  pDesc  Description string.
- * @param [in]  pAddr  Memory address.
- * @param [in]  size   Memory size.
- */
-void mem_dump(char *pDesc, void *pAddr, unsigned int size);
-
-/**
- * Print complex number sequence.
- * @param [in]  pDesc  Description string.
- * @param [in]  pSeq   Complex number sequence.
- * @param [in]  len    Complex number sequence length.
-*/
-void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 
 
 #endif  /* __LIBMISC_H__ */

@@ -9,6 +9,7 @@ LIB_DIR = $(BUILD_DIR)/lib
 #  Source
 ############
 
+SRC += $(SRC_DIR)/log.c
 SRC += $(SRC_DIR)/dump.c
 SRC += $(SRC_DIR)/file.c
 SRC += $(SRC_DIR)/input.c
