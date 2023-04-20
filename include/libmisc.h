@@ -14,6 +14,7 @@
 #define LOGERROR( a... )  log_print("LOG-[1;31mE[0m", ##a)
 #define LOGDEBUG( a... )  log_print("LOG-[1;36mD[0m", ##a)
 #define LOGDUMP(var, len) mem_dump(#var, var, len)
+#define LOGTRACE()        printf("[LOG-[1;32mT[0m] %s:%u\n", __func__, __LINE__)
 
 
 #define IS_UPPER_ALHPABET(ch) ((ch >= 'A') && (ch <= 'Z'))
