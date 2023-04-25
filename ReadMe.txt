@@ -22,10 +22,15 @@ file.c
   );
   int file_exist(char *pName);
   long file_size(char *pName);
+  void file_path_name(char *pInput, char *pPath, char *pName);
 
 input.c
   int getch(void);
   void stop(void);
+
+log.c
+  void log_option(int enable);
+  void log_print(char *pPrefix, char *pFormat, ...);
 
 parser.c
   char *bypass_token(int num, char *pString);
@@ -52,10 +57,17 @@ string.c
   int plmn2str(void *pPlmn, int plmnSize, char *pBuf, int bufSize);
   int str2plmn(char *pStr, unsigned char *pBuf, int bufSize);
 
+system.c
+  int endian(void);
+  int bitsize(void);
+
 time.c
   int rand_num(int min, int max);
-  char *time_stamp(void);
   void msleep(unsigned int ms);
+  char *time_stamp(void);
+  void time_markA(int id);
+  void time_markB(int id);
+  long time_elapse(int id);
 
 
 [ Build Command ]
