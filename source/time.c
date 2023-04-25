@@ -11,6 +11,8 @@
 //    Macro declarations
 // /////////////////////////////////////////////////////////////////////////////
 
+#define MAX_TSPEC_NUM 16
+
 
 // /////////////////////////////////////////////////////////////////////////////
 //    Type declarations
@@ -20,6 +22,8 @@
 // /////////////////////////////////////////////////////////////////////////////
 //    Variables declarations
 // /////////////////////////////////////////////////////////////////////////////
+
+static struct timespec _tspec[MAX_TSPEC_NUM][2];
 
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -43,6 +47,20 @@ int rand_num(int min, int max)
     val = ((rand() % (max - min + 1)) + min);
 
     return val;
+}
+
+/**
+ * Sleep in milli-second(s).
+ * @param [in]  ms  milli-second.
+ */
+void msleep(unsigned int ms)
+{
+    struct timeval tout;
+
+    tout.tv_sec  = ms / 1000;
+    tout.tv_usec = (ms % 1000) * 1000;
+
+    while (select(0, 0, 0, 0, &tout) < 0);
 }
 
 /**
@@ -76,16 +94,40 @@ char *time_stamp(void)
 }
 
 /**
- * Sleep in milli-second(s).
- * @param [in]  ms  milli-second.
+ * Set time mark point A.
+ * @param [in]  id  Mark ID (0 ~ 15).
  */
-void msleep(unsigned int ms)
+void time_markA(int id)
 {
-    struct timeval tout;
+    id = (id & (MAX_TSPEC_NUM - 1));
+    _tspec[id][1].tv_sec = 0;
+    _tspec[id][1].tv_nsec = 0;
+    clock_gettime(CLOCK_MONOTONIC, &(_tspec[id][0]));
+}
 
-    tout.tv_sec  = ms / 1000;
-    tout.tv_usec = (ms % 1000) * 1000;
+/**
+ * Set time mark point B.
+ * @param [in]  id  Mark ID (0 ~ 15).
+ */
+void time_markB(int id)
+{
+    id = (id & (MAX_TSPEC_NUM - 1));
+    clock_gettime(CLOCK_MONOTONIC, &(_tspec[id][1]));
+}
 
-    while (select(0, 0, 0, 0, &tout) < 0);
+/**
+ * Get time elapsed from point A to B.
+ * @param [in]  id  Mark ID (0 ~ 15).
+ * @returns  Time elapsed in nsec.
+ */
+long time_elapse(int id)
+{
+    long ns;
+
+    id = (id & (MAX_TSPEC_NUM - 1));
+    ns = ((_tspec[id][1].tv_sec * 1000000000L) + _tspec[id][1].tv_nsec) -
+            ((_tspec[id][0].tv_sec * 1000000000L) + _tspec[id][0].tv_nsec);
+
+    return ns;
 }
 

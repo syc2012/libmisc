@@ -14,7 +14,7 @@
 #define LOGERROR( a... )  log_print("LOG-[1;31mE[0m", ##a)
 #define LOGDEBUG( a... )  log_print("LOG-[1;36mD[0m", ##a)
 #define LOGDUMP(var, len) mem_dump(#var, var, len)
-#define LOGTRACE()        printf("[LOG-[1;32mT[0m] %s:%u\n", __func__, __LINE__)
+#define LOGTRACE()        printf("[LOG-[1;32mT[0m] %s %u\n", __func__, __LINE__)
 
 
 #define IS_UPPER_ALHPABET(ch) ((ch >= 'A') && (ch <= 'Z'))
@@ -175,6 +175,19 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 
 
 /**
+ * Test system endian.
+ * @returns  Big(1) or litte(0) endian.
+ */
+int endian(void);
+
+/**
+ * Test system bit number.
+ * @returns  Bits.
+*/
+int bitsize(void);
+
+
+/**
  * Generate a random between min. and max. value.
  * @param [in]  min  Min. value.
  * @param [in]  max  Max. value.
@@ -183,16 +196,35 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 int rand_num(int min, int max);
 
 /**
+ * Sleep in milli-second(s).
+ * @param [in]  ms  milli-second.
+ */
+void msleep(unsigned int ms);
+
+/**
  * Get time stamp.
  * @returns  Time stamp string.
  */
 char *time_stamp(void);
 
 /**
- * Sleep in milli-second(s).
- * @param [in]  ms  milli-second.
+ * Set time mark point A.
+ * @param [in]  id  Mark ID (0 ~ 15).
  */
-void msleep(unsigned int ms);
+void time_markA(int id);
+
+/**
+ * Set time mark point B.
+ * @param [in]  id  Mark ID (0 ~ 15).
+ */
+void time_markB(int id);
+
+/**
+ * Get time elapsed from point A to B.
+ * @param [in]  id  Mark ID (0 ~ 15).
+ * @returns  Time elapsed in nsec.
+ */
+long time_elapse(int id);
 
 
 /**
