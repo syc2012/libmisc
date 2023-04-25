@@ -122,12 +122,12 @@ void time_markB(int id)
  */
 long time_elapse(int id)
 {
-    long ns;
+    long nsec;
 
     id = (id & (MAX_TSPEC_NUM - 1));
-    ns = ((_tspec[id][1].tv_sec * 1000000000L) + _tspec[id][1].tv_nsec) -
-            ((_tspec[id][0].tv_sec * 1000000000L) + _tspec[id][0].tv_nsec);
+    nsec = ((_tspec[id][1].tv_sec * 1000000000L) + _tspec[id][1].tv_nsec) -
+           ((_tspec[id][0].tv_sec * 1000000000L) + _tspec[id][0].tv_nsec);
 
-    return ns;
+    return nsec;
 }
 
