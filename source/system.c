@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include "libmisc.h"
 
 
@@ -23,6 +24,25 @@
 // /////////////////////////////////////////////////////////////////////////////
 //    Functions
 // /////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Generate a random between min. and max. value.
+ * @param [in]  min  Min. value.
+ * @param [in]  max  Max. value.
+ * @returns  Random number.
+ */
+int rand_num(int min, int max)
+{
+    struct timeval tv;
+    int val;
+
+    gettimeofday(&tv, NULL);
+
+    srand( (unsigned int)tv.tv_usec );
+    val = ((rand() % (max - min + 1)) + min);
+
+    return val;
+}
 
 /**
  * Test system endian.

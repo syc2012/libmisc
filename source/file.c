@@ -166,3 +166,49 @@ void file_path_name(char *pInput, char *pPath, char *pName)
         if ( pName ) strcpy(pName, &(pInput[j+1]));
     }
 }
+
+/**
+ * Text file input.
+ * @param [in]  pName  File name.
+ * @param [out] pStr   String buffer.
+ * @returns  String length.
+ */
+int file_scanf(char *pName, char *pStr)
+{
+    FILE *pFile;
+    int len = 0;
+
+    pFile = fopen(pName, "r");
+    if ( pFile )
+    {
+        *pStr = 0x00;
+        fscanf(pFile, "%s", pStr);
+        fclose( pFile );
+        len = strlen( pStr );
+    }
+
+    return len;
+}
+
+/**
+ * Text file output.
+ * @param [in]  pName  File name.
+ * @param [in]  pStr   String buffer.
+ * @returns  String length.
+ */
+int file_printf(char *pName, char *pStr)
+{
+    FILE *pFile;
+    int len = 0;
+
+    pFile = fopen(pName, "w");
+    if ( pFile )
+    {
+        fprintf(pFile, "%s\n", pStr);
+        fclose( pFile );
+        len = strlen( pStr );
+    }
+
+    return len;
+}
+

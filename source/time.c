@@ -31,25 +31,6 @@ static struct timespec _tspec[MAX_TSPEC_NUM][2];
 // /////////////////////////////////////////////////////////////////////////////
 
 /**
- * Generate a random between min. and max. value.
- * @param [in]  min  Min. value.
- * @param [in]  max  Max. value.
- * @returns  Random number.
- */
-int rand_num(int min, int max)
-{
-    struct timeval tv;
-    int val;
-
-    gettimeofday(&tv, NULL);
-
-    srand( (unsigned int)tv.tv_usec );
-    val = ((rand() % (max - min + 1)) + min);
-
-    return val;
-}
-
-/**
  * Sleep in milli-second(s).
  * @param [in]  ms  milli-second.
  */

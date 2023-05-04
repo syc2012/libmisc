@@ -175,6 +175,14 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 
 
 /**
+ * Generate a random between min. and max. value.
+ * @param [in]  min  Min. value.
+ * @param [in]  max  Max. value.
+ * @returns  Random number.
+ */
+int rand_num(int min, int max);
+
+/**
  * Test system endian.
  * @returns  Big(1) or litte(0) endian.
  */
@@ -186,14 +194,6 @@ int endian(void);
 */
 int bitsize(void);
 
-
-/**
- * Generate a random between min. and max. value.
- * @param [in]  min  Min. value.
- * @param [in]  max  Max. value.
- * @returns  Random number.
- */
-int rand_num(int min, int max);
 
 /**
  * Sleep in milli-second(s).
@@ -344,6 +344,22 @@ long file_size(char *pName);
  * @param [out] pName.  File name.
  */
 void file_path_name(char *pInput, char *pPath, char *pName);
+
+/**
+ * Text file input.
+ * @param [in]  pName  File name.
+ * @param [out] pStr   String buffer.
+ * @returns  String length.
+ */
+int file_scanf(char *pName, char *pStr);
+
+/**
+ * Text file output.
+ * @param [in]  pName  File name.
+ * @param [in]  pStr   String buffer.
+ * @returns  String length.
+ */
+int file_printf(char *pName, char *pStr);
 
 
 /**
