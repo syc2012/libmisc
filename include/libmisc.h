@@ -422,4 +422,29 @@ int plmn2str(void *pPlmn, int plmnSize, char *pBuf, int bufSize);
 int str2plmn(char *pStr, unsigned char *pBuf, int bufSize);
 
 
+/**
+ * Get network device IP address.
+ * @param [in]   pDev  Network device name.
+ * @param [out]  pIp   IP address (string).
+ * @returns  Success(0) or failure(-1).
+ */
+int netdev_getIpAddr(char *pDev, char *pIp);
+
+/**
+ * Get network device MAC address.
+ * @param [in]   pDev  Network device name.
+ * @param [out]  pMac  MAC address (6 bytes).
+ * @returns  Success(0) or failure(-1).
+ */
+int netdev_getMacAddr(char *pDev, unsigned char *pMac);
+
+/**
+ * Get network device MTU.
+ * @param [in]   pDev  Network device name.
+ * @param [out]  pMtu  MTU size.
+ * @returns  Success(0) or failure(-1).
+ */
+int netdev_getMtu(char *pDev, int *pMtu);
+
+
 #endif  /* __LIBMISC_H__ */

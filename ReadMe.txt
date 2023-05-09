@@ -23,6 +23,8 @@ file.c
   int file_exist(char *pName);
   long file_size(char *pName);
   void file_path_name(char *pInput, char *pPath, char *pName);
+  int file_scanf(char *pName, char *pStr);
+  int file_printf(char *pName, char *pStr);
 
 input.c
   int getch(void);
@@ -31,6 +33,11 @@ input.c
 log.c
   void log_option(int enable);
   void log_print(char *pPrefix, char *pFormat, ...);
+
+network.c
+  int netdev_getIpAddr(char *pDev, char *pIp);
+  int netdev_getMacAddr(char *pDev, unsigned char *pMac);
+  int netdev_getMtu(char *pDev, int *pMtu);
 
 parser.c
   char *bypass_token(int num, char *pString);
@@ -58,11 +65,11 @@ string.c
   int str2plmn(char *pStr, unsigned char *pBuf, int bufSize);
 
 system.c
+  int rand_num(int min, int max);
   int endian(void);
   int bitsize(void);
 
 time.c
-  int rand_num(int min, int max);
   void msleep(unsigned int ms);
   char *time_stamp(void);
   void time_markA(int id);

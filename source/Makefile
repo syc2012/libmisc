@@ -13,6 +13,7 @@ SRC += $(SRC_DIR)/dump.c
 SRC += $(SRC_DIR)/file.c
 SRC += $(SRC_DIR)/input.c
 SRC += $(SRC_DIR)/log.c
+SRC += $(SRC_DIR)/network.c
 SRC += $(SRC_DIR)/parser.c
 SRC += $(SRC_DIR)/string.c
 SRC += $(SRC_DIR)/system.c
