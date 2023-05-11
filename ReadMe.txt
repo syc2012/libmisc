@@ -10,7 +10,7 @@ $(BUILD_DIR)
 [ Source Code ]
 
 dump.c
-  void mem_dump(char *pDesc, void *pAddr, unsigned int size);
+  void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii);
   void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
 
 file.c
@@ -31,8 +31,8 @@ input.c
   void stop(void);
 
 log.c
-  void log_option(int enable);
-  void log_print(char *pPrefix, char *pFormat, ...);
+  void log_option(int mask);
+  void log_print(int mask, char *pFormat, ...);
 
 network.c
   int netdev_getIpAddr(char *pDev, char *pIp);

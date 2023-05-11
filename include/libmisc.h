@@ -9,12 +9,13 @@
 //    Macro declarations
 // /////////////////////////////////////////////////////////////////////////////
 
-#define LOGINFO( a... )   log_print("LOG-I", ##a)
-#define LOGWARN( a... )   log_print("LOG-[1;33mW[0m", ##a)
-#define LOGERROR( a... )  log_print("LOG-[1;31mE[0m", ##a)
-#define LOGDEBUG( a... )  log_print("LOG-[1;36mD[0m", ##a)
-#define LOGDUMP(var, len) mem_dump(#var, var, len)
-#define LOGTRACE()        printf("[LOG-[1;32mT[0m] %s %u\n", __func__, __LINE__)
+#define LOGINFO( a... )    log_print(L_INFO, ##a)
+#define LOGWARN( a... )    log_print(L_WARN, ##a)
+#define LOGERROR( a... )   log_print(L_ERROR, ##a)
+#define LOGDEBUG( a... )   log_print(L_DEBUG, ##a)
+#define LOGTRACE()         log_print(L_TRACE, "%s %u\n", __func__, __LINE__)
+#define LOGDUMP(var, len)  mem_dump(#var, var, len, 0)
+#define LOGASCII(var, len) mem_dump(#var, var, len, 1)
 
 
 #define IS_UPPER_ALHPABET(ch) ((ch >= 'A') && (ch <= 'Z'))
@@ -118,6 +119,17 @@
 
 typedef enum
 {
+    L_NONE  = 0x00,
+    L_INFO  = 0x01,
+    L_WARN  = 0x02,
+    L_ERROR = 0x04,
+    L_DEBUG = 0x08,
+    L_TRACE = 0x10,
+    L_ALL   = 0x1F
+} tLogMask;
+
+typedef enum
+{
     PARSE_CONTINUE = 0,
     PARSE_STOP
 } tParseAction;
@@ -145,16 +157,16 @@ typedef struct _tComplex
 
 /**
  * Log output option.
- * @param [in]  enable  Enable or disable log output.
+ * @param [in]  mask  A @ref tLogMask enumeration.
  */
-void log_option(int enable);
+void log_option(int mask);
 
 /**
  * Log print function.
- * @param [in]  pPrefix  Log prefix.
+ * @param [in]  mask     A @ref tLogMask enumeration.
  * @param [in]  pFormat  Print format.
  */
-void log_print(char *pPrefix, char *pFormat, ...);
+void log_print(int mask, char *pFormat, ...);
 
 
 /**
@@ -162,8 +174,9 @@ void log_print(char *pPrefix, char *pFormat, ...);
  * @param [in]  pDesc  Description string.
  * @param [in]  pAddr  Memory address.
  * @param [in]  size   Memory size.
+ * @param [in]  ascii  Print ASCII (boolean).
  */
-void mem_dump(char *pDesc, void *pAddr, unsigned int size);
+void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii);
 
 /**
  * Print complex number sequence.

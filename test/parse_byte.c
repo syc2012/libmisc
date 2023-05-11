@@ -10,7 +10,7 @@ int parseByte(unsigned char *pBuf, int size, unsigned int offset)
     char label[16];
 
     sprintf(label, "offset %u", offset);
-    mem_dump(label, pBuf, size);
+    mem_dump(label, pBuf, size, 0);
 
     return PARSE_CONTINUE;
 }

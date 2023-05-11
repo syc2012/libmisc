@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     len = parse_hex_string_file(pFile, g_buf, MAX_BUF_SIZE);
     if (len > 0)
     {
-        mem_dump(pFile, g_buf, len);
+        mem_dump(pFile, g_buf, len, 1);
     }
 
     return 0;

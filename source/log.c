@@ -20,8 +20,7 @@
 //    Variables declarations
 // /////////////////////////////////////////////////////////////////////////////
 
-/* 0: disable, 1: enable log output */
-static int _logOutput = 1;
+static int _logOutput = L_ALL;
 
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -30,25 +29,44 @@ static int _logOutput = 1;
 
 /**
  * Log output option.
- * @param [in]  enable  Enable or disable log output.
+ * @param [in]  mask  A @ref tLogMask enumeration.
  */
-void log_option(int enable)
+void log_option(int mask)
 {
-    _logOutput = enable;
+    _logOutput = (mask & L_ALL);
 }
 
 /**
  * Log print function.
- * @param [in]  pPrefix  Log prefix.
+ * @param [in]  mask     A @ref tLogMask enumeration.
  * @param [in]  pFormat  Print format.
  */
-void log_print(char *pPrefix, char *pFormat, ...)
+void log_print(int mask, char *pFormat, ...)
 {
     va_list args;
 
-    if ( _logOutput )
+    if (_logOutput & mask)
     {
-        printf("[%s] ", pPrefix);
+        switch ( mask )
+        {
+            case L_INFO:
+                printf("[LOG-I] ");
+                break;
+            case L_WARN:
+                printf("[LOG-[1;33mW[0m] ");
+                break;
+            case L_ERROR:
+                printf("[LOG-[1;31mE[0m] ");
+                break;
+            case L_DEBUG:
+                printf("[LOG-[1;36mD[0m] ");
+                break;
+            case L_TRACE:
+                printf("[LOG-[1;32mT[0m] ");
+                break;
+            default:
+                printf("[LOG-?] ");
+        }
 
         va_start(args, pFormat);
         vprintf(pFormat, args);

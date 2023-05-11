@@ -29,29 +29,44 @@
  * @param [in]  pDesc  Description string.
  * @param [in]  pAddr  Memory address.
  * @param [in]  size   Memory size.
+ * @param [in]  ascii  Print ASCII (boolean).
  */
-void mem_dump(char *pDesc, void *pAddr, unsigned int size)
+void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii)
 {
     unsigned char *pByte = pAddr;
     unsigned int i = 0;
 
     if (NULL == pAddr)
     {
-        fprintf(stderr, "%s (NULL)\n\n", pDesc);
+        printf("%s (NULL)\n\n", pDesc);
         return;
     }
 
-    fprintf(stderr, "%s\n", pDesc);
+    printf("%s\n", pDesc);
     for (i=0; i<size; i++)
     {
         if ((i != 0) && ((i % 16) == 0))
         {
-            fprintf(stderr, "\n");
+            printf("\n");
         }
-        fprintf(stderr, " %02X", pByte[i]);
+        if ( ascii )
+        {
+            if ((pByte[i] >= 0x20) && (pByte[i] <= 0x7E))
+            {
+                printf("  %c", pByte[i]);
+            }
+            else
+            {
+                printf(" %02X", pByte[i]);
+            }
+        }
+        else
+        {
+            printf(" %02X", pByte[i]);
+        }
     }
-    fprintf(stderr, "\n");
-    fprintf(stderr, " (%u bytes)\n\n", size);
+    printf("\n");
+    printf(" (%u bytes)\n\n", size);
 }
 
 /**
@@ -64,15 +79,15 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len)
 {
     int i;
 
-    fprintf(stderr, "%s\n", pDesc);
+    printf("%s\n", pDesc);
     for (i=0; i<len; i++)
     {
         #if 1
-        fprintf(stderr, " %+.6f %+.6fi\n", pSeq[i].real, pSeq[i].imag);
+        printf(" %+.6f %+.6fi\n", pSeq[i].real, pSeq[i].imag);
         #else
-        fprintf(stderr, " %+e %+ei\n", pSeq[i].real, pSeq[i].imag);
+        printf(" %+e %+ei\n", pSeq[i].real, pSeq[i].imag);
         #endif
     }
-    fprintf(stderr, " (%u points)\n\n", len);
+    printf(" (%u points)\n\n", len);
 }
 
