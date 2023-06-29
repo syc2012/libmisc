@@ -92,12 +92,9 @@
 
 #define CPLX_DIV(ina, inb, outc) \
 { \
-    double real, imag; \
     double temp = ((inb.real * inb.real) + (inb.imag * inb.imag)); \
-    real = ((ina.real * inb.real) + (ina.imag * inb.imag)) / temp; \
-    imag = ((ina.imag * inb.real) - (ina.real * inb.imag)) / temp; \
-    outc.real = real; \
-    outc.imag = imag; \
+    outc.real = ((ina.real * inb.real) + (ina.imag * inb.imag)) / temp; \
+    outc.imag = ((ina.imag * inb.real) - (ina.real * inb.imag)) / temp; \
 }
 
 #define CPLX_SQUARE(in, out) \
