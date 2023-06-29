@@ -86,11 +86,8 @@
 
 #define CPLX_MUL(ina, inb, outc) \
 { \
-    double real, imag; \
-    real = ((ina.real * inb.real) - (ina.imag * inb.imag)); \
-    imag = ((ina.imag * inb.real) + (ina.real * inb.imag)); \
-    outc.real = real; \
-    outc.imag = imag; \
+    outc.real = ((ina.real * inb.real) - (ina.imag * inb.imag)); \
+    outc.imag = ((ina.imag * inb.real) + (ina.real * inb.imag)); \
 }
 
 #define CPLX_DIV(ina, inb, outc) \
@@ -101,6 +98,12 @@
     imag = ((ina.imag * inb.real) - (ina.real * inb.imag)) / temp; \
     outc.real = real; \
     outc.imag = imag; \
+}
+
+#define CPLX_SQUARE(in, out) \
+{ \
+    out.real = (pow(in.real, 2) - pow(in.imag, 2)); \
+    out.imag = (2 * in.real * in.imag); \
 }
 
 #define CPLX_POW( in ) \
