@@ -25,6 +25,23 @@
 // /////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Remove CR, LF in the end of string.
+ * @param [in,out]  pStr  String buffer.
+ */
+void removeCRLF(char *pStr)
+{
+    char symbol[2] = { '\n', '\r' };
+    int len = strlen( pStr );
+    int i, j;
+
+    for (i=0, j=(len-1); i<len; i++, j--)
+    {
+        if (symbol[i] == pStr[j]) pStr[j] = 0;
+        if (i >= 1) break;
+    }
+}
+
+/**
  * Convert HEX to DEC.
  * @param [in]  ch  HEX character (0 ~ F).
  * @returns  Integer 0 ~ 15.
@@ -39,26 +56,14 @@ unsigned char hex2dec(char ch)
         case '5': case '6': case '7': case '8': case '9':
             val = (ch - '0');
             break;
-        case 'a': case 'A':
-            val = 10;
+        case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+            val = (ch - 'a');
             break;
-        case 'b': case 'B':
-            val = 11;
-            break;
-        case 'c': case 'C':
-            val = 12;
-            break;
-        case 'd': case 'D':
-            val = 13;
-            break;
-        case 'e': case 'E':
-            val = 14;
-            break;
-        case 'f': case 'F':
-            val = 15;
+        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+            val = (ch - 'A');
             break;
         default:
-            ;
+            break;
     }
 
     return val;

@@ -385,6 +385,20 @@ int file_printf(char *pName, char *pStr);
 
 
 /**
+ * Remove CR, LF in the end of string.
+ * @param [in,out]  pStr  String buffer.
+ */
+void removeCRLF(char *pStr);
+
+/**
+ * Convert HEX to DEC.
+ * @param [in]  ch  HEX character (0 ~ F).
+ * @returns  Integer 0 ~ 15.
+ */
+unsigned char hex2dec(char ch);
+
+
+/**
  * Convert IP address data to string.
  * @param [in]   ver      IP version (4 or 6).
  * @param [in]   pAddr    IP address data (byte array).
