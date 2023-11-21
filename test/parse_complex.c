@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     num = parse_complex_string_file(pFile, g_buf, MAX_BUF_SIZE);
     if (num > 0)
     {
-        cplx_dump(pFile, g_buf, num);
+        cplx_dump(pFile, g_buf, num, 0);
     }
 
     return 0;

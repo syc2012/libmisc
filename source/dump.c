@@ -74,19 +74,32 @@ void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii)
  * @param [in]  pDesc  Description string.
  * @param [in]  pSeq   Complex number sequence.
  * @param [in]  len    Complex number sequence length.
+ * @param [in]  eForm  Scientific notation.
 */
-void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len)
+void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len, int eForm)
 {
     int i;
 
-    printf("%s\n", pDesc);
-    for (i=0; i<len; i++)
+    if (NULL == pSeq)
     {
-        #if 1
-        printf(" %+.6f %+.6fi\n", pSeq[i].real, pSeq[i].imag);
-        #else
-        printf(" %+e %+ei\n", pSeq[i].real, pSeq[i].imag);
-        #endif
+        printf("%s (NULL)\n\n", pDesc);
+        return;
+    }
+
+    printf("%s\n", pDesc);
+    if ( eForm )
+    {
+        for (i=0; i<len; i++)
+        {
+            printf(" %+e %+ei\n", pSeq[i].real, pSeq[i].imag);
+        }
+    }
+    else
+    {
+        for (i=0; i<len; i++)
+        {
+            printf(" %+.8f %+.8fi\n", pSeq[i].real, pSeq[i].imag);
+        }
     }
     printf(" (%u points)\n\n", len);
 }

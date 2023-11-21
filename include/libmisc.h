@@ -192,8 +192,9 @@ void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii);
  * @param [in]  pDesc  Description string.
  * @param [in]  pSeq   Complex number sequence.
  * @param [in]  len    Complex number sequence length.
+ * @param [in]  eForm  Scientific notation.
 */
-void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
+void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len, int eForm);
 
 
 /**
