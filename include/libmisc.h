@@ -68,8 +68,10 @@
     } while (0)
 
 
-#define DIV_CEIL(x, y)  (((x) + ((y) - 1)) / (y))
-#define DIV_FLOOR(x, y) ((x) / (y))
+#define DIV_CEIL(x, y)  ceil((double)(x) / (double)(y))
+#define DIV_FLOOR(x, y) floor((double)(x) / (double)(y))
+#define DIV_MOD(x, y)   ((x) - ((y) * DIV_FLOOR(x, y)))
+#define DIV_REM(x, y)   ((x) % (y))
 
 
 #define CPLX_ADD(ina, inb, outc) \
