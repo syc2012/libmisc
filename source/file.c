@@ -212,3 +212,90 @@ int file_printf(char *pName, char *pStr)
     return len;
 }
 
+/**
+ * File read.
+ * @param [in]  pName   File name.
+ * @param [in]  pBuf    Read buffer.
+ * @param [in]  bufLen  Read length.
+ * @param [in]  offset  Read offset.
+ * @returns  Data length.
+ */
+int file_read(char *pName, void *pBuf, int bufLen, int offset)
+{
+    FILE *pFile;
+    unsigned char *pData = pBuf;
+    int i;
+
+    pFile = fopen(pName, "r");
+    if (NULL == pFile)
+    {
+        perror( "fopen" );
+        printf("%s\n\n", pName);
+        return 0;
+    }
+
+    if (offset > 0)
+    {
+        if (0 != fseek(pFile, offset, SEEK_SET))
+        {
+            perror( "fseek" );
+            printf("offset: %d\n\n", offset);
+            fclose( pFile );
+            return 0;
+        }
+    }
+
+    for (i=0; i<bufLen; i++)
+    {
+        if ( feof( pFile ) ) break;
+        if (1 != fread(&(pData[i]), 1, 1, pFile)) break;
+    }
+
+    fclose( pFile );
+
+    return i;
+}
+
+/**
+ * File write.
+ * @param [out]  pName    File name.
+ * @param [in]   pData    Write buffer.
+ * @param [in]   dataLen  Write length.
+ * @param [in]   offset   Write offset.
+ * @returns  Data length.
+ */
+int file_write(char *pName, void *pData, int dataLen, int offset)
+{
+    FILE *pFile;
+    unsigned char empty = 0;
+    int i;
+
+    pFile = fopen(pName, "w");
+    if (NULL == pFile)
+    {
+        perror( "fopen" );
+        printf("%s\n\n", pName);
+        return 0;
+    }
+
+    for (i=0; i<offset; i++)
+    {
+        if (1 != fwrite(&empty, 1, 1, pFile))
+        {
+            perror( "fwrite" );
+            printf("offset: %d/%d\n\n", i, offset);
+            break;
+        }
+    }
+
+    if (1 != fwrite(pData, dataLen, 1, pFile))
+    {
+        perror( "fwrite" );
+        printf("dataLen: %d\n\n", dataLen);
+    }
+
+    fclose( pFile );
+
+    return (dataLen + i);
+}
+

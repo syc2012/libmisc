@@ -25,6 +25,8 @@ file.c
   void file_path_name(char *pInput, char *pPath, char *pName);
   int file_scanf(char *pName, char *pStr);
   int file_printf(char *pName, char *pStr);
+  int file_read(char *pName, void *pBuf, int bufLen, int offset);
+  int file_write(char *pName, void *pData, int dataLen, int offset);
 
 input.c
   int getch(void);

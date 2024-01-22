@@ -386,6 +386,26 @@ int file_scanf(char *pName, char *pStr);
  */
 int file_printf(char *pName, char *pStr);
 
+/**
+ * File read.
+ * @param [in]  pName   File name.
+ * @param [in]  pBuf    Read buffer.
+ * @param [in]  bufLen  Read length.
+ * @param [in]  offset  Read offset.
+ * @returns  Data length.
+ */
+int file_read(char *pName, void *pBuf, int bufLen, int offset);
+
+/**
+ * File write.
+ * @param [out]  pName    File name.
+ * @param [in]   pData    Write buffer.
+ * @param [in]   dataLen  Write length.
+ * @param [in]   offset   Write offset.
+ * @returns  Data length.
+ */
+int file_write(char *pName, void *pData, int dataLen, int offset);
+
 
 /**
  * Remove CR, LF in the end of string.
