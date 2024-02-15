@@ -41,6 +41,11 @@ network.c
   int netdev_getMacAddr(char *pDev, unsigned char *pMac);
   int netdev_getMtu(char *pDev, int *pMtu);
 
+memory.c
+  void fmem_init(tFlexMem *pMem);
+  void fmem_uninit(tFlexMem *pMem);
+  void *fmem_resize(tFlexMem *pMem, unsigned int bytes);
+
 parser.c
   char *bypass_token(int num, char *pString);
   char *first_token(char *pString, char *pToken, int tsize);
@@ -83,3 +88,4 @@ time.c
 
 $ source setup.gcc
 $ make
+

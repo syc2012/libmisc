@@ -156,6 +156,13 @@ typedef struct _tComplex
     double  imag;
 } tComplex;
 
+typedef struct _tFlexMem
+{
+    unsigned char *pBuf;
+    unsigned int   len;
+    unsigned int   lenMax;
+} tFlexMem;
+
 
 // /////////////////////////////////////////////////////////////////////////////
 //    Variables declarations
@@ -504,6 +511,27 @@ int netdev_getMacAddr(char *pDev, unsigned char *pMac);
  * @returns  Success(0) or failure(-1).
  */
 int netdev_getMtu(char *pDev, int *pMtu);
+
+
+/**
+* Flexible memory initial.
+* @param [in]  pMem  A @ref tFlexMem object.
+*/
+void fmem_init(tFlexMem *pMem);
+
+/**
+* Flexible memory un-initial.
+* @param [in]  pMem  A @ref tFlexMem object.
+*/
+void fmem_uninit(tFlexMem *pMem);
+
+/**
+* Flexible memory resize.
+* @param [in]  pMem   A @ref tFlexMem object.
+* @param [in]  bytes  Memory buffer size.
+* @returns  Memory buffer.
+*/
+void *fmem_resize(tFlexMem *pMem, unsigned int bytes);
 
 
 #endif  /* __LIBMISC_H__ */
