@@ -121,7 +121,7 @@
     sqrt(pow(in.real, 2) + pow(in.imag, 2))
 
 #define CPLX_ANGLE( in ) \
-    atan2(in.imag, in.real)
+    (((0 == in.imag) || (0 == in.real)) ? atan2(in.imag, in.real) : 0)
 
 
 // /////////////////////////////////////////////////////////////////////////////
