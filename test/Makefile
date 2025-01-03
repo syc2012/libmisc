@@ -30,6 +30,7 @@ APPS += parse_line
 APPS += parse_token
 APPS += parse_hex
 APPS += parse_complex
+APPS += parse_shell
 
 all: $(APPS)
 	$(STRIP) $^
@@ -47,6 +48,9 @@ parse_hex: parse_hex.o
 	$(CC) $< $(LDFLAGS) -o $@
 
 parse_complex: parse_complex.o
+	$(CC) $< $(LDFLAGS) -o $@
+
+parse_shell: parse_shell.o
 	$(CC) $< $(LDFLAGS) -o $@
 
 %.o: %.c $(INC_DIR)/libmisc.h

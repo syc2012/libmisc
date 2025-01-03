@@ -207,6 +207,14 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len, int eForm);
 
 
 /**
+ * Execute shell command.
+ * @param [in]  pCmd   Shell command.
+ * @param [in]  pFunc  Line parsing callback function.
+ * @returns  Line number.
+*/
+int shell_command(char *pCmd, tParseLineCb pFunc);
+
+/**
  * Generate a random between min. and max. value.
  * @param [in]  min  Min. value.
  * @param [in]  max  Max. value.

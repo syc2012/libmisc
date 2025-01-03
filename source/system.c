@@ -25,6 +25,48 @@
 //    Functions
 // /////////////////////////////////////////////////////////////////////////////
 
+extern int read_line(FILE *pFile, char *pLine, int lsize);
+
+/**
+ * Execute shell command.
+ * @param [in]  pCmd   Shell command.
+ * @param [in]  pFunc  Line parsing callback function.
+ * @returns  Line number.
+*/
+int shell_command(char *pCmd, tParseLineCb pFunc)
+{
+    char  line[LINE_SIZE+1];
+    FILE *pFile = NULL;
+    int   count = 0;
+    int   action;
+
+    if ( pCmd )
+    {
+        if ( !(pFile = popen(pCmd, "r")) )
+        {
+            printf("%s: popen failed\n\n", __func__);
+            return 0;
+        }
+
+        if ( pFunc )
+        {
+            while (read_line(pFile, line, LINE_SIZE) >= 0)
+            {
+                if ( line[0] )
+                {
+                    count++;
+                    action = pFunc(line, strlen( line ), count);
+                    if (PARSE_STOP == action) break;
+                }
+            }
+        }
+    }
+
+    pclose( pFile );
+
+    return count;
+}
+
 /**
  * Generate a random between min. and max. value.
  * @param [in]  min  Min. value.
