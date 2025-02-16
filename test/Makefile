@@ -31,9 +31,10 @@ APPS += parse_token
 APPS += parse_hex
 APPS += parse_complex
 APPS += parse_shell
+APPS += backtrace
 
 all: $(APPS)
-	$(STRIP) $^
+#	$(STRIP) $^
 
 parse_byte: parse_byte.o
 	$(CC) $< $(LDFLAGS) -o $@
@@ -53,8 +54,11 @@ parse_complex: parse_complex.o
 parse_shell: parse_shell.o
 	$(CC) $< $(LDFLAGS) -o $@
 
+backtrace: backtrace.o
+	$(CC) $< $(LDFLAGS) -rdynamic -o $@
+
 %.o: %.c $(INC_DIR)/libmisc.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -g -c $<
 
 clean:
 	@rm -f $(APPS) *.o
