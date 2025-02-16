@@ -27,6 +27,20 @@
 // /////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Current work directory.
+ * @returns  Directory path.
+ */
+char *current_dir(void)
+{
+    static char _path[PATH_MAX];
+
+    memset(_path, 0, PATH_MAX);
+    getcwd(_path, PATH_MAX);
+
+    return _path;
+}
+
+/**
  * List all files in a directory.
  * @param [in]  pDir       Directory path.
  * @param [in]  recursive  Boolean.

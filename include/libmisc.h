@@ -205,6 +205,12 @@ void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii);
 */
 void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len, int eForm);
 
+/**
+ * Dump stack.
+ * @param [in]  pDesc  Description string.
+ */
+void stack_dump(char *pDesc);
+
 
 /**
  * Execute shell command.
@@ -347,6 +353,12 @@ unsigned int parse_complex_string_file(
     unsigned int  bufSize
 );
 
+
+/**
+ * Current work directory.
+ * @returns  Directory path.
+ */
+char *current_dir(void);
 
 /**
  * List all files in a directory.

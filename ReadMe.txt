@@ -12,8 +12,10 @@ $(BUILD_DIR)
 dump.c
   void mem_dump(char *pDesc, void *pAddr, unsigned int size, int ascii);
   void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len);
+  void stack_dump(char *pDesc);
 
 file.c
+  char *current_dir(void);
   int list_dir_files(
       char       *pDir,
       int         recursive,

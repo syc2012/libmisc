@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <execinfo.h>
 #include "libmisc.h"
 
 
@@ -102,5 +103,30 @@ void cplx_dump(char *pDesc, tComplex *pSeq, unsigned int len, int eForm)
         }
     }
     printf(" (%u points)\n\n", len);
+}
+
+/**
+ * Dump stack.
+ * @param [in]  pDesc  Description string.
+ */
+void stack_dump(char *pDesc)
+{
+    void *pBuf[128];
+    char **ppStr;
+    int frames;
+    int i;
+
+    printf("%s\n", pDesc);
+    frames = backtrace(pBuf, 128);
+    ppStr = backtrace_symbols(pBuf, frames);
+    if ( ppStr )
+    {
+        for (i=0; i<frames; i++)
+        {
+            printf("%s\n", ppStr[i]);
+        }
+        printf("\n");
+        free( ppStr );
+    }
 }
 
