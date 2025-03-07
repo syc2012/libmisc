@@ -60,9 +60,9 @@ int shell_command(char *pCmd, tParseLineCb pFunc)
                 }
             }
         }
-    }
 
-    pclose( pFile );
+        pclose( pFile );
+    }
 
     return count;
 }
