@@ -30,14 +30,18 @@
  */
 void removeCRLF(char *pStr)
 {
-    char symbol[2] = { '\n', '\r' };
-    int len = strlen( pStr );
-    int i, j;
+    int i;
 
-    for (i=0, j=(len-1); i<len; i++, j--)
+    for (i=(strlen(pStr)-1); i>=0; i--)
     {
-        if (symbol[i] == pStr[j]) pStr[j] = 0;
-        if (i >= 1) break;
+        switch ( pStr[i] )
+        {
+            case '\r': case '\n':
+                pStr[i] = 0;
+                break;
+            default:
+                return;
+        }
     }
 }
 

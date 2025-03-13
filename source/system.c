@@ -25,8 +25,6 @@
 //    Functions
 // /////////////////////////////////////////////////////////////////////////////
 
-extern int read_line(FILE *pFile, char *pLine, int lsize);
-
 /**
  * Execute shell command.
  * @param [in]  pCmd   Shell command.
@@ -50,14 +48,11 @@ int shell_command(char *pCmd, tParseLineCb pFunc)
 
         if ( pFunc )
         {
-            while (read_line(pFile, line, LINE_SIZE) >= 0)
+            while ( fgets(line, LINE_SIZE, pFile) )
             {
-                if ( line[0] )
-                {
-                    count++;
-                    action = pFunc(line, strlen( line ), count);
-                    if (PARSE_STOP == action) break;
-                }
+                count++;
+                action = pFunc(line, strlen( line ), count);
+                if (PARSE_STOP == action) break;
             }
         }
 
